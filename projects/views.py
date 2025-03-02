@@ -49,7 +49,7 @@ class ProjectDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
 class TaskCreateView(LoginRequiredMixin, UserPassesTestMixin, CreateView):
     model = models.Task
     fields = ['project', 'description']
-    http_method_names = ['get', 'post']
+    http_method_names = ['get']
 
     def test_func(self):
         project_id = self.request.POST.get('project', '')
@@ -60,7 +60,7 @@ class TaskCreateView(LoginRequiredMixin, UserPassesTestMixin, CreateView):
 class TaskUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = models.Task
     fields = ['is_completed']
-    http_method_names = ['get', 'post']
+    http_method_names = ['get']
     def test_func(self):
         return self.get_object().project.user_id == self.request.user.id
     def get_success_url(self):
